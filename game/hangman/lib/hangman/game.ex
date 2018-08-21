@@ -22,7 +22,7 @@ defmodule Hangman.Game do
   end
 
   def make_move(game, guess) do
-    accept_move(game, guess, MapSet.member?(game.used, guess))
+    make_move(game, guess, guess =~ ~r/^[a-z]$/)
   end
 
   def tally(game) do
@@ -31,6 +31,14 @@ defmodule Hangman.Game do
       turns_left: game.turns_left,
       letters: game.letters |> reveal_guessed(game.used)
     }
+  end
+
+  defp make_move(game, guess, _valid_guess = true) do
+    accept_move(game, guess, MapSet.member?(game.used, guess))
+  end
+
+  defp make_move(game, _, _invalid_guess) do
+    struct(game, game_state: :invalid_guess)
   end
 
   defp accept_move(game, _guess, _already_guessed = true) do

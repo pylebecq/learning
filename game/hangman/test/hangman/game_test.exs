@@ -70,6 +70,14 @@ defmodule HangmanGameTest do
     ])
   end
 
+  test "invalid move is recognized and do not reduce turns left" do
+    assert_moves(Game.new_game("wibbles"), [
+      {"A", :invalid_guess, 7},
+      {":", :invalid_guess, 7},
+      {"ab", :invalid_guess, 7},
+    ])
+  end
+
   defp assert_moves(game, moves) do
     Enum.reduce(moves, game, fn { guess, state, turns_left }, game ->
       game = Game.make_move(game, guess)

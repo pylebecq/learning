@@ -22,12 +22,12 @@ defmodule Hangman.Game do
     { game, tally(game) }
   end
 
-  defp accept_move(game, guess, _already_guessed = true) do
-    Map.put(game, :game_state, :already_used)
+  defp accept_move(game, _guess, _already_guessed = true) do
+    struct(game, game_state: :already_used)
   end
 
   defp accept_move(game, guess, _already_guessed = false) do
-    Map.put(game, :used, MapSet.put(game.used, guess))
+    struct(game, used: MapSet.put(game.used, guess))
   end
 
   def tally(game) do

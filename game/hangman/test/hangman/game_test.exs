@@ -13,4 +13,11 @@ defmodule HangmanGameTest do
     assert Enum.all?(game.letters, fn x -> x =~ ~r/^[a-z]$/ end)
   end
 
+  test "state isn't changed for :won or :lost game" do
+    for state <- [:won, :lost] do
+      game = Game.new_game() |> Map.put(:game_state, :won)
+      assert { ^game, _ } = Game.make_move(game, "x")
+    end
+  end
+
 end

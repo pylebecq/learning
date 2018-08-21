@@ -8,8 +8,12 @@ defmodule Hangman.Game do
   ]
 
   def new_game() do
+    new_game(Dictionnary.random_word())
+  end
+
+  def new_game(word) do
     %Hangman.Game{
-      letters: Dictionnary.random_word |> String.codepoints
+      letters: word |> String.codepoints
     }
   end
 
@@ -26,9 +30,24 @@ defmodule Hangman.Game do
     struct(game, game_state: :already_used)
   end
 
-  defp accept_move(game, guess, _already_guessed = false) do
+  defp accept_move(game, guess, _not_already_guessed) do
     struct(game, used: MapSet.put(game.used, guess))
+    |> score_guess(Enum.member?(game.letters, guess))
   end
+
+  defp score_guess(game, _good_guess = true) do
+    new_state = MapSet.new(game.letters)
+    |> MapSet.subset?(game.used)
+    |> maybe_won()
+    struct(game, game_state: new_state)
+  end
+
+  defp score_guess(game, _not_good_guess) do
+    game
+  end
+
+  defp maybe_won(true), do: :won
+  defp maybe_won(_), do: :good_guess
 
   def tally(game) do
     123

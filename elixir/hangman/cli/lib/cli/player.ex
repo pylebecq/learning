@@ -1,5 +1,4 @@
 defmodule Cli.Player do
-  
   alias Cli.{Mover, Prompter, State, Summary}
 
   # won, list, good guess, bad guess, already used, initializing
@@ -44,5 +43,4 @@ defmodule Cli.Player do
     IO.puts(message)
     exit(:normal)
   end
-
 end

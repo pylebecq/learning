@@ -1,5 +1,4 @@
 defmodule Cli.Interact do
-
   alias Cli.{Player, State}
 
   def start() do
@@ -19,5 +18,4 @@ defmodule Cli.Interact do
       tally: Hangman.tally(game)
     }
   end
-
 end

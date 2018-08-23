@@ -47,7 +47,7 @@ defmodule HangmanGameTest do
       {"i", :good_guess, 7},
       {"b", :good_guess, 7},
       {"l", :good_guess, 7},
-      {"e", :won, 7},
+      {"e", :won, 7}
     ])
   end
 
@@ -66,7 +66,7 @@ defmodule HangmanGameTest do
       {"d", :bad_guess, 3},
       {"e", :bad_guess, 2},
       {"f", :bad_guess, 1},
-      {"g", :lost, 0},
+      {"g", :lost, 0}
     ])
   end
 
@@ -74,17 +74,16 @@ defmodule HangmanGameTest do
     assert_moves(Game.new_game("wibbles"), [
       {"A", :invalid_guess, 7},
       {":", :invalid_guess, 7},
-      {"ab", :invalid_guess, 7},
+      {"ab", :invalid_guess, 7}
     ])
   end
 
   defp assert_moves(game, moves) do
-    Enum.reduce(moves, game, fn { guess, state, turns_left }, game ->
+    Enum.reduce(moves, game, fn {guess, state, turns_left}, game ->
       game = Game.make_move(game, guess)
       assert game.game_state == state
       assert game.turns_left == turns_left
       game
     end)
   end
-
 end

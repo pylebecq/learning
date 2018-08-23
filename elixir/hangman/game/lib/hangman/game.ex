@@ -1,11 +1,8 @@
 defmodule Hangman.Game do
-
-  defstruct [
-    turns_left: 7,
-    game_state: :initializing,
-    letters: [],
-    used: MapSet.new(),
-  ]
+  defstruct turns_left: 7,
+            game_state: :initializing,
+            letters: [],
+            used: MapSet.new()
 
   def new_game() do
     new_game(Dictionnary.random_word())
@@ -13,11 +10,11 @@ defmodule Hangman.Game do
 
   def new_game(word) do
     %Hangman.Game{
-      letters: word |> String.codepoints
+      letters: word |> String.codepoints()
     }
   end
 
-  def make_move(game = %{ game_state: state }, _) when state in [:won, :lost] do
+  def make_move(game = %{game_state: state}, _) when state in [:won, :lost] do
     game
   end
 
@@ -51,9 +48,11 @@ defmodule Hangman.Game do
   end
 
   defp score_guess(game, _good_guess = true) do
-    new_state = MapSet.new(game.letters)
-    |> MapSet.subset?(game.used)
-    |> maybe_won()
+    new_state =
+      MapSet.new(game.letters)
+      |> MapSet.subset?(game.used)
+      |> maybe_won()
+
     struct(game, game_state: new_state)
   end
 
@@ -70,7 +69,6 @@ defmodule Hangman.Game do
 
   defp reveal_guessed(letters, used) do
     letters
-    |> Enum.map(fn letter -> MapSet.member?(used, letter) && letter || "_" end)
+    |> Enum.map(fn letter -> (MapSet.member?(used, letter) && letter) || "_" end)
   end
-
 end

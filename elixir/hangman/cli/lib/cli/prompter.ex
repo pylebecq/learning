@@ -1,5 +1,4 @@
 defmodule Cli.Prompter do
-
   alias Cli.State
 
   def ask_next_move(game = %State{}) do
@@ -19,13 +18,14 @@ defmodule Cli.Prompter do
 
   defp check_input(input, game = %State{}) do
     input = String.trim(input)
+
     cond do
       input =~ ~r/^[a-z]$/ ->
         Map.put(game, :guess, input)
+
       true ->
         IO.puts("Please enter a single lowercase letter")
         ask_next_move(game)
     end
   end
-
 end

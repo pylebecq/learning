@@ -2,12 +2,9 @@ defmodule Dictionnary.Application do
   use Application
 
   def start(_type, _args) do
-    import Supervisor.Spec
-
     children = [
-      worker(Dictionnary.WordList, [])
+      Dictionnary.WordList
     ]
-
     options = [
       name: Dictionnary.Supervisor,
       strategy: :one_for_one

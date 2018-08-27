@@ -1,6 +1,13 @@
 defmodule Dictionnary.WordList do
   @me __MODULE__
 
+  def child_spec(_opts) do
+    %{
+      id: __MODULE__,
+      start: {__MODULE__, :start_link, []}
+    }
+  end
+
   def start_link() do
     Agent.start_link(&word_list/0, name: @me)
   end

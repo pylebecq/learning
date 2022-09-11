@@ -8,7 +8,7 @@ defmodule Dictionary.Impl.WordList do
   @spec word_list() :: t
   def word_list do
     words =
-      "assets/words.txt"
+      "#{__DIR__}/../../../assets/words.txt"
       |> File.read!()
       |> String.split("\n", trim: true)
 

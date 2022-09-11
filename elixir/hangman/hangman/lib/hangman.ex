@@ -13,13 +13,9 @@ defmodule Hangman do
     pid
   end
 
-  @spec make_move(game, String.t()) :: {game, tally}
-  def make_move(game, guess) do
-    GenServer.call(game, {:make_move, guess})
-  end
+  @spec make_move(game, String.t()) :: tally
+  def make_move(game, guess), do: GameServer.make_move(game, guess)
 
   @spec tally(game) :: tally
-  def tally(game) do
-    GenServer.call(game, {:tally})
-  end
+  def tally(game), do: GameServer.tally(game)
 end

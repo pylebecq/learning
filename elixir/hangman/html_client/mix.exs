@@ -33,6 +33,7 @@ defmodule HtmlClient.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      # Default phoenix dependencies
       {:phoenix, "~> 1.6.12"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -42,7 +43,9 @@ defmodule HtmlClient.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      # 1st party dependencies
+      {:hangman, path: "../hangman"}
     ]
   end
 

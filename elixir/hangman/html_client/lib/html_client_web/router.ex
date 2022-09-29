@@ -17,7 +17,12 @@ defmodule HtmlClientWeb.Router do
   scope "/", HtmlClientWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    scope "/hangman" do
+      get "/", HangmanController, :index
+      post "/", HangmanController, :new
+      put "/", HangmanController, :update
+      get "/current", HangmanController, :show
+    end
   end
 
   # Other scopes may use custom stacks.
